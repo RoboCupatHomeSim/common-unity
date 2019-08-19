@@ -1,6 +1,6 @@
 # Common Unity Project
 
-This is a common Unity project for the RoboCup@Home Simulation competition in the World Robot Competition.
+This is a common Unity project for the RoboCup@Home Simulation competition.
 Please make a common unitypackage, and import the unitypackage to Unity projects of each competition.
 
 See also [wiki page](https://github.com/RoboCupatHomeSim/common-unity/wiki).
