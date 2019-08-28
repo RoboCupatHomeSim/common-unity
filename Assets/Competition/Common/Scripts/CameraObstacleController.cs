@@ -11,6 +11,8 @@ namespace SIGVerse.Competition
 
 		public LayerMask layerMask;
 
+		public Material transparentMaterial;
+
 		//--------------------------------------------------
 
 		private Camera targetCamera;
@@ -19,13 +21,9 @@ namespace SIGVerse.Competition
 
 		private Material[] savedMaterials;
 
-		private Material transparentMaterial;
-
 		void Awake()
 		{
 			this.targetCamera = this.GetComponent<Camera>();
-
-			this.transparentMaterial = CreateTransparentMaterial();
 		}
 
 		private void OnPreRender()
@@ -59,25 +57,6 @@ namespace SIGVerse.Competition
 
 				this.targetMeshRenderer = null;
 			}
-		}
-
-
-		private static Material CreateTransparentMaterial()
-		{
-			Material transparentMaterial = new Material(Shader.Find("SIGVerse/SIGVerse_BothSidesShader"));
-
-			transparentMaterial.SetFloat("_Mode", 3); // Transparent
-			transparentMaterial.SetOverrideTag("RenderType", "Transparent");
-			transparentMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
-			transparentMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-			transparentMaterial.SetInt("_ZWrite", 0);
-			transparentMaterial.DisableKeyword("_ALPHATEST_ON");
-			transparentMaterial.DisableKeyword("_ALPHABLEND_ON");
-			transparentMaterial.EnableKeyword("_ALPHAPREMULTIPLY_ON");
-			transparentMaterial.renderQueue = 3000;
-			transparentMaterial.SetColor("_Color", new Color(1, 1, 1, 0.3f));
-
-			return transparentMaterial;
 		}
 
 		private static Material[] CreateTemporaryMaterials(Material[] sourceMaterials, Material transparentMaterial)
