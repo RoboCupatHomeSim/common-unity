@@ -97,6 +97,8 @@ namespace SIGVerse.Competition
 		{
 			if (other.attachedRigidbody == null) { return; }
 
+			if (this.placedRigidbodyMap == null) { return; }
+
 			if (!this.placedRigidbodyMap.ContainsKey(other.attachedRigidbody))
 			{
 				this.placedRigidbodyMap.Add(other.attachedRigidbody, 0);
