@@ -84,7 +84,7 @@ namespace SIGVerse.Competition
 
 			foreach (VideoPlayer videoPlayerAll in videoPlayersAll)
 			{
-				if(videoPlayerAll.GetInstanceID() <= 0){ continue; }
+//				if(videoPlayerAll.GetInstanceID() <= 0){ continue; }
 
 				if (videoPlayerAll.hideFlags != HideFlags.None) { continue; }
 
