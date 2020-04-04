@@ -119,12 +119,19 @@ namespace SIGVerse.Competition
 
 					foreach (string transformPath in dataArray)
 					{
-						if (!this.targetTransformPathMap.ContainsKey(transformPath))
+						if(transformPath == string.Empty)
 						{
-							SIGVerseLogger.Error("Couldn't find the object that path is " + transformPath);
+							this.transformOrder.Add(null);
 						}
+						else
+						{
+							if (!this.targetTransformPathMap.ContainsKey(transformPath))
+							{
+								SIGVerseLogger.Error("Couldn't find the object that path is " + transformPath);
+							}
 
-						this.transformOrder.Add(this.targetTransformPathMap[transformPath]);
+							this.transformOrder.Add(this.targetTransformPathMap[transformPath]);
+						}
 					}
 				}
 				// Value
@@ -138,6 +145,8 @@ namespace SIGVerse.Competition
 
 					for (int i = 0; i < dataArray.Length; i++)
 					{
+						if(this.transformOrder[i] is null) { continue; }
+
 						string[] transformValues = dataArray[i].Split(',');
 
 						PlaybackTransformEvent transformEvent = new PlaybackTransformEvent();
