@@ -82,13 +82,11 @@ namespace SIGVerse.Competition
 
 			VideoPlayer[] videoPlayersAll = Resources.FindObjectsOfTypeAll(typeof(VideoPlayer)) as VideoPlayer[];
 
-			foreach (VideoPlayer videoPlayerAll in videoPlayersAll)
+			foreach (VideoPlayer videoPlayer in videoPlayersAll)
 			{
-//				if(videoPlayerAll.GetInstanceID() <= 0){ continue; }
+				if(!videoPlayer.gameObject.scene.IsValid()){ continue; }
 
-				if (videoPlayerAll.hideFlags != HideFlags.None) { continue; }
-
-				this.targetVideoPlayers.Add(videoPlayerAll);
+				this.targetVideoPlayers.Add(videoPlayer);
 			}
 		}
 
