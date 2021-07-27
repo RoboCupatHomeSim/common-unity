@@ -22,7 +22,7 @@ namespace SIGVerse.ToyotaHSR
 
 		public Transform sensorLink;
 
-		public LayerMask layerMask;
+		public LayerMask layerMask = -1;
 
 		[HeaderAttribute("DEBUG")]
 		public bool showDebugRay = true;

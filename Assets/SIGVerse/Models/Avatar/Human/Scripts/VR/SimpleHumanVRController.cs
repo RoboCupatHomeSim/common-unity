@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets_1_1_2.CrossPlatformInput;
 
+#if SIGVERSE_STEAMVR
+using Valve.VR;
+#endif
+
 namespace SIGVerse.Human.VR
 {
 	public class SimpleHumanVRController : MonoBehaviour
@@ -16,6 +20,8 @@ namespace SIGVerse.Human.VR
 		public float moveSpeedByController = 1.0f;
 		public float moveSpeedByHmd        = 2.0f;
 		public float strideMax = 0.3f;
+
+		public bool useSteamVrInput = true;
 		//////////////////////////////
 
 		private Animator animator;
@@ -26,7 +32,7 @@ namespace SIGVerse.Human.VR
 		private float preHorizontal = 0.0f;
 		private float preVertical   = 0.0f;
 
-		private void Awake()
+		protected virtual void Awake()
 		{
 			this.animator = GetComponent<Animator>();
 
@@ -40,7 +46,7 @@ namespace SIGVerse.Human.VR
 			this.fixedTransforms = fixedTransformList.ToArray();
 		}
 
-		private void Start()
+		protected virtual void Start()
 		{
 			this.fixedQuaternionsOrg = new Quaternion[this.fixedTransforms.Length];
 
@@ -50,7 +56,7 @@ namespace SIGVerse.Human.VR
 			}
 		}
 
-		private void Update()
+		protected virtual void Update()
 		{
 			if(Time.time > 0.1f && this.eyeAnchor.up.y > 0.1f)
 			{
@@ -64,6 +70,14 @@ namespace SIGVerse.Human.VR
 			// read inputs
 			float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
 			float vertical   = CrossPlatformInputManager.GetAxis("Vertical");
+
+#if SIGVERSE_STEAMVR
+			if (this.useSteamVrInput)
+			{
+				horizontal = SteamVR_Actions.sigverse.Move.axis.x;
+				vertical   = SteamVR_Actions.sigverse.Move.axis.y;
+			}
+#endif
 
 			(horizontal, vertical) = this.GetRestrictedInput(horizontal, vertical);
 
@@ -117,7 +131,7 @@ namespace SIGVerse.Human.VR
 		}
 
 		// Update is called once per frame
-		void LateUpdate()
+		protected virtual void LateUpdate()
 		{
 			for (int i=0; i<this.fixedTransforms.Length; i++)
 			{

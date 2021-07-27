@@ -22,7 +22,7 @@ namespace SIGVerse.Common
 
 		public GameObject eventDestination;
 
-		public LayerMask layerMask;
+		public LayerMask layerMask = -1;
 
 		public bool enableDebugRay = false;
 
@@ -91,7 +91,6 @@ namespace SIGVerse.Common
 						if(hit.distance < EnterDistance-RaySourcePosZ)
 						{
 							this.currentEnterRigidbodies.Add(hit.rigidbody);
-
 						}
 						if(hit.distance < ExitDistance-RaySourcePosZ)
 						{

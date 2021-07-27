@@ -8,3 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/WRS2018/Common/sample.unity
     guid: 47405ba0be4b4674fafb8ddd62d61b7a
+  m_configObjects:
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 3df72ff55b256c44c809f92787bd6a61,
+      type: 2}
