@@ -13,10 +13,9 @@ https://github.com/RoboCupatHomeSim/documents/blob/master/SoftwareManual/Environ
 ## How to Make a Common Unitypackage
 
 1. Open this project with Unity.
-2. Click [Open] and select "common-unity" folder.
-3. Click [Assets]-[Export Package...].
-4. Click [Export...] button.
-5. Type a file name (e.g. robocup-common) and save the unitypackage file.
+1. Click [Assets]-[Export Package...].
+1. Click [Export...] button.
+1. Type a file name (e.g. robocup-common) and save the unitypackage file.
 
 ## License
 
