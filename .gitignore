@@ -79,9 +79,7 @@ crashlytics-build.properties
 /Assets/SteamVR_Resources.meta
 
 # XR
-/Assets/XR/*
-!/Assets/XR/XRGeneralSettings.asset
-!/Assets/XR/XRGeneralSettings.asset.meta
+/Assets/XR*
 
 # SIGVerse
 /SIGVerseConfig/
