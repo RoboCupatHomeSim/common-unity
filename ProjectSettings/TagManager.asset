@@ -4,17 +4,24 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Fire
+  - Graspable
+  - Robot
+  - Ground
+  - GraspablePosition
+  - NonDeductionCollider
+  - DestinationCandidate
+  - MotionRecorder
+  - projectile
+  - FxTemporaire
   - GraspingCandidates
   - DummyGraspingCandidates
   - GraspingCandidatesPosition
   - DestinationCandidates
-  - Ground
-  - Robot
   - Moderator
   - PlaybackTarget
   - MainMenu
   - AudienceCamera
-  - NonDeductionCollider
   layers:
   - Default
   - TransparentFX
@@ -51,4 +58,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 1093696345
+    locked: 0
+  - name: Foreground
+    uniqueID: 1859086223
+    locked: 0
+  - name: Characters
+    uniqueID: 3940858523
+    locked: 0
+  - name: UI
+    uniqueID: 771169021
     locked: 0

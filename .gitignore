@@ -79,10 +79,15 @@ crashlytics-build.properties
 /Assets/SteamVR_Resources.meta
 
 # XR
-/Assets/XR*
+# Can't include the XR settings because SteamVR uses the local file com.valvesoftware.unity.openvr-1.1.4.tgz.
+/Assets/XR/*
+!/Assets/XR/XRGeneralSettings.asset
+!/Assets/XR/XRGeneralSettings.asset.meta
 
 # SIGVerse
-/SIGVerseConfig/
+/SIGVerseConfig/*
+!/SIGVerseConfig/sample/
+!/SIGVerseConfig/data/
 /MotionData/
 
 SIGVerse*.log
@@ -90,10 +95,19 @@ SIGVerse*.log
 *Google.Protobuf.dll*
 *System.Windows.Forms.dll*
 
+/Assets/Resources/OculusPlatformSettings*
+/Assets/Resources/OculusRuntimeSettings*
+/Assets/Resources/ONSPSettings*
+/Assets/Resources/OVRPlatformToolSettings*
+
 /Assets/OVR*
 /Assets/Oculus*
 /Assets/Plugins/Android*
 /Assets/Plugins/OVR*
 /Assets/Photon*
 
+# UniVRM
+/Assets/UniGLTF*
+/Assets/VRM*
+/Assets/VRMShaders*
 
