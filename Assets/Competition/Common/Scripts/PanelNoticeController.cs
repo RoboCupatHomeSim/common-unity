@@ -5,6 +5,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+#if SIGVERSE_PUN
+using Photon.Pun;
+#endif
+
 namespace SIGVerse.Competition
 {
 	public interface IPanelNoticeHandler : IEventSystemHandler
@@ -41,12 +45,16 @@ namespace SIGVerse.Competition
 	}
 
 
+#if SIGVERSE_PUN
+	public class PanelNoticeController : MonoBehaviourPun, IPanelNoticeHandler
+#else
 	public class PanelNoticeController : MonoBehaviour, IPanelNoticeHandler
+#endif
 	{
 		public GameObject noticePanel;
 
 		private Text noticeText;
-		private float hideTime = 0.0f;
+		private float maxDuration = 1000f;
 
 		void Awake()
 		{
@@ -58,7 +66,33 @@ namespace SIGVerse.Competition
 			this.noticePanel.SetActive(false);
 		}
 
+		public void SetMaxDuration(float maxDuration)
+		{
+			this.maxDuration = maxDuration;
+		}
+
+#if SIGVERSE_PUN
+		private void ShowNotice(PanelNoticeStatus pns)
+		{
+			this.photonView.RPC(nameof(ShowNoticeRPC), RpcTarget.All, pns.Message, pns.FontSize, pns.Color.r, pns.Color.g, pns.Color.b, pns.Color.a, pns.Duration);
+		}
+
+		[PunRPC]
+		private void ShowNoticeRPC(string message, int fontSize, float color_r, float color_g, float color_b, float color_a, float duration, PhotonMessageInfo info)
+		{
+			Color color = new Color(color_r, color_g, color_b, color_a);
+			PanelNoticeStatus panelNoticeStatus = new PanelNoticeStatus(message, fontSize, color, duration);
+
+			this.ShowNoticeExe(panelNoticeStatus);
+		}
+#else
 		private void ShowNotice(PanelNoticeStatus panelNoticeStatus)
+		{
+			this.ShowNoticeExe(panelNoticeStatus);
+		}
+#endif
+
+		private void ShowNoticeExe(PanelNoticeStatus panelNoticeStatus)
 		{
 			this.noticePanel.SetActive(true);
 
@@ -66,14 +100,19 @@ namespace SIGVerse.Competition
 			noticeText.fontSize = panelNoticeStatus.FontSize;
 			noticeText.color    = panelNoticeStatus.Color;
 
-			this.hideTime = UnityEngine.Time.time + panelNoticeStatus.Duration;
-
-			StartCoroutine(this.HideNotice()); // Hide
+			StartCoroutine(this.HideNotice(panelNoticeStatus.Duration)); // Hide
 		}
 
-		private IEnumerator HideNotice()
+		private IEnumerator HideNotice(float duration)
 		{
-			while(UnityEngine.Time.time < this.hideTime)
+			if (duration > this.maxDuration)
+			{
+				duration = this.maxDuration;
+			}
+
+			float hideTime = UnityEngine.Time.time + duration;
+
+			while(UnityEngine.Time.time < hideTime)
 			{
 				yield return null;
 			}

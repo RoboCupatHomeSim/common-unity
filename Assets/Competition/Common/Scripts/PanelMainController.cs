@@ -6,6 +6,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+#if SIGVERSE_PUN
+using Photon.Pun;
+#endif
+
 namespace SIGVerse.Competition
 {
 	public interface ITimeIsUpHandler : IEventSystemHandler
@@ -13,7 +17,11 @@ namespace SIGVerse.Competition
 		void OnTimeIsUp();
 	}
 
+#if SIGVERSE_PUN
+	public class PanelMainController : MonoBehaviourPun
+#else
 	public class PanelMainController : MonoBehaviour
+#endif
 	{
 		private const string TimeFormat = "#####0";
 		private const string TagNameAudienceCamera = "AudienceCamera";
@@ -67,7 +75,34 @@ namespace SIGVerse.Competition
 			this.teamNameText.text = teamName;
 		}
 
+#if SIGVERSE_PUN
 		public void SetTimeLeft(float timeLeft)
+		{
+
+			if(PhotonNetwork.InRoom)
+			{
+				this.photonView.RPC(nameof(SetTimeLeftRPC), RpcTarget.All, timeLeft);
+			}
+			else
+			{
+				this.SetTimeLeftRPC(timeLeft);
+			}
+		}
+
+		[PunRPC]
+		private void SetTimeLeftRPC(float timeLeft)
+		{
+			this.SetTimeLeftExe(timeLeft);
+		}
+#else
+		public void SetTimeLeft(float timeLeft)
+		{
+
+			this.SetTimeLeftExe(timeLeft);
+		}
+#endif
+
+		private void SetTimeLeftExe(float timeLeft)
 		{
 			this.timeLeftValText.text = timeLeft.ToString(TimeFormat);
 		}
