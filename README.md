@@ -1,3 +1,7 @@
+> [!WARNING]
+> This repository is for ROS 1 only.
+
+
 # Common Unity Project
 
 This is a common Unity project for the RoboCup@Home Simulation competition.
